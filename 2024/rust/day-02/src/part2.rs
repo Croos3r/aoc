@@ -1,5 +1,3 @@
-use itertools::Itertools;
-
 #[tracing::instrument]
 pub fn process(input: &str) -> miette::Result<usize> {
     let result = input
