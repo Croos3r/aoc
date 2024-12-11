@@ -35,7 +35,17 @@ day_09_bench  fastest       │ slowest       │ median        │ mean        
 
 day_10_bench    fastest       │ slowest       │ median        │ mean          │ samples │ iters
 ├─ part1        102.8 µs      │ 187.2 µs      │ 119.1 µs      │ 120.4 µs      │ 100     │ 100
-├─ part2        64.97 µs      │ 143.4 µs      │ 74.99 µs      │ 79.25 µs      │ 100     │ 100
 ├─ part1_rayon  104.4 µs      │ 725 µs        │ 208.3 µs      │ 246.2 µs      │ 100     │ 100
+├─ part2        64.97 µs      │ 143.4 µs      │ 74.99 µs      │ 79.25 µs      │ 100     │ 100
 ╰─ part2_rayon  65.16 µs      │ 710.3 µs      │ 106.2 µs      │ 118.6 µs      │ 100     │ 100
+
+day_11_bench                   fastest       │ slowest       │ median        │ mean          │ samples │ iters
+├─ part1                       25.33 ms      │ 34.82 ms      │ 28.74 ms      │ 29.19 ms      │ 100     │ 100
+├─ part1_recursive             9.9 ms        │ 10.65 ms      │ 10.06 ms      │ 10.08 ms      │ 100     │ 100
+├─ part1_recursive_cached      290.9 µs      │ 326.8 µs      │ 299.3 µs      │ 301.1 µs      │ 100     │ 100
+├─ part1_recursive_cached_par  1.906 ms      │ 3.709 ms      │ 2.61 ms       │ 2.693 ms      │ 100     │ 100
+├─ part2                       DNF           │ DNF           │ DNF           │ DNF           │ DNF     │ DNF
+├─ part2_recursive             DNF           │ DNF           │ DNF           │ DNF           │ DNF     │ DNF
+├─ part2_recursive_cached      12.99 ms      │ 20.28 ms      │ 13.8 ms       │ 13.92 ms      │ 100     │ 100
+╰─ part2_recursive_cached_par  33.47 ms      │ 63.84 ms      │ 42.86 ms      │ 43.54 ms      │ 100     │ 100
 
