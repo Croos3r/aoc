@@ -1,22 +1,10 @@
+use crate::Rotation;
 use nom::branch::alt;
 use nom::character::complete::{char, line_ending, u16};
 use nom::combinator::map;
 use nom::multi::separated_list1;
 use nom::sequence::pair;
 use nom::{Finish, Parser};
-use std::fmt::{Display, Formatter};
-
-#[derive(Debug)]
-pub struct Rotation {
-    left: bool,
-    degrees: u16,
-}
-
-impl Display for Rotation {
-    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{}{}", if self.left { "L" } else { "R" }, self.degrees)
-    }
-}
 
 #[tracing::instrument]
 pub fn process(input: &str) -> miette::Result<usize> {
@@ -37,8 +25,7 @@ pub fn process(input: &str) -> miette::Result<usize> {
     let mut result = 0;
 
     for rotation in list {
-        cur += rotation.degrees as isize * if rotation.left { 1 } else { -1 };
-        cur %= 100;
+        cur = (cur + rotation.degrees as isize * if rotation.left { -1 } else { 1 }) % 100;
         if cur == 0 {
             result += 1;
         }

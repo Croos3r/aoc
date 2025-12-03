@@ -1,17 +1,51 @@
+use crate::Rotation;
+use nom::branch::alt;
+use nom::character::complete::{char, line_ending, u16};
+use nom::combinator::map;
+use nom::multi::separated_list1;
+use nom::sequence::pair;
+use nom::{Finish, Parser};
+
 #[tracing::instrument]
-pub fn process(_input: &str) -> miette::Result<String> {
-    todo!("day 01 - part 2");
+pub fn process(input: &str) -> miette::Result<isize> {
+    let (_, list) = separated_list1(
+        line_ending::<&str, nom::error::Error<&str>>,
+        map(pair(alt((char('R'), char('L'))), u16), |(dir, deg)| {
+            Rotation {
+                left: dir == 'L',
+                degrees: deg,
+            }
+        }),
+    )
+    .parse(input)
+    .finish()
+    .map_err(|e| miette::miette!("parsing error: {}", e))?;
+
+    let mut cur = 50isize;
+    let mut result = 0;
+
+    for rotation in list {
+        let dest = cur + rotation.degrees as isize * if rotation.left { -1 } else { 1 };
+        let revs = (dest / 100).abs();
+
+        if cur != 0 && dest <= 0 {
+            result += 1;
+        }
+        cur = dest.rem_euclid(100);
+        result += revs;
+    }
+
+    Ok(result)
 }
 
 #[cfg(test)]
 mod tests {
-    use super::*;
+	use super::*;
 
-    #[test]
+	#[test]
     fn test_process() -> miette::Result<()> {
-        todo!("haven't built test yet");
-        let input = "";
-        assert_eq!("", process(input)?);
+        let input = "L68\nL30\nR48\nL5\nR60\nL55\nL1\nL99\nR14\nL82";
+        assert_eq!(6, process(input)?);
         Ok(())
     }
 }
