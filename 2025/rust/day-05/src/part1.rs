@@ -2,12 +2,12 @@ use crate::parse_input;
 
 #[tracing::instrument]
 pub fn process(input: &str) -> miette::Result<usize> {
-    let (fresh_ids, available_ids) = parse_input(input);
+    let (fresh_id_ranges, available_ids) = parse_input(input);
 
     Ok(available_ids
         .into_iter()
         .filter(|available_id| {
-            fresh_ids
+            fresh_id_ranges
                 .iter()
                 .any(|(start, end)| start <= available_id && available_id <= end)
         })
